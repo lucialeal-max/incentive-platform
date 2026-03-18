@@ -2,6 +2,7 @@ import { DEMO_PAYOUT_RUN } from "@/lib/demo-data";
 
 export default function PayoutPage() {
   const run = DEMO_PAYOUT_RUN;
+  const fmt = (n: number) => "$" + n.toLocaleString();
   return (
     <div className="space-y-6 max-w-3xl">
       <div>
@@ -26,20 +27,20 @@ export default function PayoutPage() {
               <tr key={i} className="hover:bg-gray-50/50">
                 <td className="px-5 py-3 text-gray-900">{item.userName}</td>
                 <td className="px-5 py-3 text-gray-600">{item.objectiveName}</td>
-                <td className="px-5 py-3 text-right font-semibold">${item.amount.toLocaleString()}</td>
+                <td className="px-5 py-3 text-right font-semibold">{fmt(item.amount)}</td>
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr className="bg-indigo-50">
               <td colSpan={2} className="px-5 py-3 font-semibold text-indigo-900">Total</td>
-              <td className="px-5 py-3 text-right font-bold text-indigo-900 text-base">${run.totalAmount.toLocaleString()}</td>
+              <td className="px-5 py-3 text-right font-bold text-indigo-900 text-base">{fmt(run.totalAmount)}</td>
             </tr>
           </tfoot>
         </table>
       </div>
       <button className="w-full py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition">
-        Aprobar payout — {run.totalAmount{"}"} USD
+        Aprobar payout — {fmt(run.totalAmount)} USD
       </button>
     </div>
   );
