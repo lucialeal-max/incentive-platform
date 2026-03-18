@@ -1,9 +1,6 @@
-// ─── Condition & Routing ────────────────────────────────────────────
 export type ConditionOperator =
-  | 'eq' | 'neq'
-  | 'gt' | 'gte' | 'lt' | 'lte'
-  | 'in' | 'not_in'
-  | 'known' | 'unknown'
+  | 'eq' | 'neq' | 'gt' | 'gte' | 'lt' | 'lte'
+  | 'in' | 'not_in' | 'known' | 'unknown'
   | 'days_ago_gt' | 'days_ago_lt';
 
 export interface Condition {
@@ -18,9 +15,9 @@ export interface ConditionGroup {
 }
 
 export type ObjectiveStatus =
-  | 'draft' | 'active' | 'in_progress'
-  | 'achieved' | 'under_review' | 'rejected'
-  | 'approved' | 'payout_requested';
+  | 'draft' | 'active' | 'in_progress' | 'achieved'
+  | 'under_review' | 'validation' | 'rejected'
+  | 'approved' | 'payout_requested' | 'pending';
 
 export interface RoutingRule {
   condition: ConditionGroup;
@@ -28,7 +25,6 @@ export interface RoutingRule {
   reason?: string;
 }
 
-// ─── Bonus Formula ──────────────────────────────────────────────────
 export type BonusFormula =
   | { type: 'fixed'; amount: number }
   | { type: 'percentage_of_field'; field: string; percentage: number }
@@ -39,7 +35,6 @@ export interface BonusCase {
   formula: BonusFormula;
 }
 
-// ─── Core Domain ────────────────────────────────────────────────────
 export type ObjectiveType = 'boolean' | 'percentage' | 'numeric' | 'status';
 
 export interface Objective {
@@ -68,15 +63,6 @@ export interface IncentivePlan {
   createdAt: string;
 }
 
-export interface Assignment {
-  id: string;
-  objectiveId: string;
-  assigneeType: 'role' | 'team' | 'user';
-  assigneeId: string;
-  startDate: string;
-  endDate: string;
-}
-
 export interface Profile {
   id: string;
   fullName: string;
@@ -86,7 +72,6 @@ export interface Profile {
   jobRole?: string;
 }
 
-// ─── Evaluation ─────────────────────────────────────────────────────
 export interface ConditionResult {
   field: string;
   passed: boolean;
@@ -95,30 +80,6 @@ export interface ConditionResult {
   operator: ConditionOperator;
 }
 
-export interface EvaluationInput {
-  objective: Objective;
-  crmData: Record<string, unknown>;
-  userContext: { userId: string; role: string };
-}
-
-export interface EvaluationResult {
-  status: 'approved' | 'validation' | 'rejected';
-  conditionResults: ConditionResult[];
-  bonusAmount: number | null;
-  routingReason: string | null;
-  friendlyExplanation: string;
-}
-
-export interface RuleTrace {
-  evaluatedAt: string;
-  inputSnapshot: Record<string, unknown>;
-  conditions: ConditionResult[];
-  routingResult: string;
-  routingReason: string;
-  friendlyExplanation: string;
-}
-
-// ─── Instances & Payout ─────────────────────────────────────────────
 export interface ObjectiveInstance {
   id: string;
   objectiveId: string;
@@ -152,44 +113,4 @@ export interface PayoutItem {
   amount: number;
   userName?: string;
   objectiveName?: string;
-}
-
-// ─── CRM Snapshot ───────────────────────────────────────────────────
-export interface CRMSnapshot {
-  id: string;
-  dealId: string;
-  dealName: string;
-  dealStage: string;
-  pipelineName?: string;
-  dealOwner?: string;
-  dealOwnerId?: string;
-  cxOwner?: string;
-  cxOwnerId?: string;
-  createdate?: string;
-  bookedDate?: string;
-  dateReadyToSuccess?: string;
-  handoffEarlySuccessDate?: string;
-  churnDate?: string;
-  closeDate?: string;
-  percentActiveUsers?: number;
-  stickyFeatureCount?: number;
-  resolvedProcessesFeatureCount?: number;
-  wauPercent?: number;
-  wauLastUpdateDate?: string;
-  csatScore?: string;
-  csatLastUpdateDate?: string;
-  totalUsersFromCommunities?: number;
-  mrr?: number;
-  expansionAmount?: number;
-  churnAmount?: number;
-  currency?: string;
-  leadStatus?: string;
-  isRedList?: boolean;
-  daysSinceBooked?: number;
-  daysSinceHandoff?: number;
-  csatIsStale?: boolean;
-  wauIsStale?: boolean;
-  syncedAt: string;
-  periodMonth: number;
-  periodYear: number;
 }
