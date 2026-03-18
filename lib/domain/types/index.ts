@@ -80,6 +80,20 @@ export interface ConditionResult {
   operator: ConditionOperator;
 }
 
+export interface EvaluationInput {
+  objective: Objective;
+  crmData: Record<string, unknown>;
+  userContext: { userId: string; role: string };
+}
+
+export interface EvaluationResult {
+  status: string;
+  conditionResults: ConditionResult[];
+  bonusAmount: number | null;
+  routingReason: string | null;
+  friendlyExplanation: string;
+}
+
 export interface ObjectiveInstance {
   id: string;
   objectiveId: string;
