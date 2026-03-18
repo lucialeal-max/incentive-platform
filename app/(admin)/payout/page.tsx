@@ -2,14 +2,12 @@ import { DEMO_PAYOUT_RUN } from "@/lib/demo-data";
 
 export default function PayoutPage() {
   const run = DEMO_PAYOUT_RUN;
-
   return (
     <div className="space-y-6 max-w-3xl">
       <div>
-        <h1 className="text-xl font-semibold text-gray-900">Payout Run</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Marzo 2026 · Borrador listo para aprobar</p>
+        <h1 className="text-xl font-semibold text-gray-900">Payout Run — Marzo 2026</h1>
+        <p className="text-sm text-gray-500 mt-0.5">Borrador listo para aprobar</p>
       </div>
-
       <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between">
           <span className="text-sm font-medium text-gray-700">Ítems a pagar</span>
@@ -28,25 +26,20 @@ export default function PayoutPage() {
               <tr key={i} className="hover:bg-gray-50/50">
                 <td className="px-5 py-3 text-gray-900">{item.userName}</td>
                 <td className="px-5 py-3 text-gray-600">{item.objectiveName}</td>
-                <td className="px-5 py-3 text-right font-semibold text-gray-900">
-                  ${item.amount.toLocaleString()}
-                </td>
+                <td className="px-5 py-3 text-right font-semibold">${item.amount.toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr className="bg-indigo-50">
               <td colSpan={2} className="px-5 py-3 font-semibold text-indigo-900">Total</td>
-              <td className="px-5 py-3 text-right font-bold text-indigo-900 text-base">
-                ${run.totalAmount.toLocaleString()}
-              </td>
+              <td className="px-5 py-3 text-right font-bold text-indigo-900 text-base">${run.totalAmount.toLocaleString()}</td>
             </tr>
           </tfoot>
         </table>
       </div>
-
       <button className="w-full py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition">
-        Aprobar payout run — ${run.totalAmount.toLocaleString()} USD
+        Aprobar payout — {run.totalAmount{"}"} USD
       </button>
     </div>
   );
