@@ -3,7 +3,6 @@ import { ObjectiveCard } from "@/components/objectives/objective-card";
 import { BonusSummaryBar } from "@/components/objectives/bonus-summary-bar";
 
 export default function MyObjectivesPage() {
-  // In production: fetch from DAL using session userId
   const instances = DEMO_INSTANCES.filter(i => i.userId === "00000000-0000-0000-0000-000000000003");
   const totalApproved = instances
     .filter(i => i.status === "approved")
