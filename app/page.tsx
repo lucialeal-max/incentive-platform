@@ -1,5 +1,2 @@
 import { redirect } from "next/navigation";
-
-export default function Home() {
-  redirect("/my-objectives");
-}
+export default function Home() { redirect("/login"); }
